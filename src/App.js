@@ -10,10 +10,13 @@ class App extends Component {
     super(props);
 
     this.state = {
-      searchResults: []
+      searchResults: [],
+      addToPlaylist: []
     };
 
     this.searchSpotify = this.searchSpotify.bind(this);
+    this.addTrack = this.addTrack.bind(this);
+    this.removeTrack = this.removeTrack.bind(this);
   }
 
   searchSpotify(input) {
@@ -22,13 +25,28 @@ class App extends Component {
     });
   }
 
+  addTrack(track) {
+    this.setState({ addToPlaylist: this.state.addToPlaylist.concat(track) });
+  }
+
+  removeTrack(track) {
+    let tracks = this.state.addToPlaylist;
+    tracks = tracks.filter(currentTrack => currentTrack.id !== track.id);
+
+    this.setState({addToPlaylist: tracks});
+  }
+
   render() {
     return (
-      <div className="App">
-        <h1>Ja<span class="highlight">mmm</span>ing</h1>
-        <SearchBar searchSpotify={this.searchSpotify}/>
-        <SearchResults searchResults={this.state.searchResults}/>
-        <Playlist />
+      <div>
+        <h1>Ja<span className="highlight">mmm</span>ing</h1>
+        <div className="App">
+          <SearchBar searchSpotify={this.searchSpotify}/>
+          <div className="App-playlist">
+            <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack}/>
+            <Playlist addToPlaylist={this.state.addToPlaylist} onRemove={this.removeTrack}/>
+          </div>
+        </div>
       </div>
     );
   }

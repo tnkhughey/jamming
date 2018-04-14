@@ -39,14 +39,18 @@ h2 {
 }
 
 .App-playlist {
+  display: -ms-flexbox;
   display: flex;
-  justify-content: space-between;
+  -ms-flex-pack: justify;
+      justify-content: space-between;
   width: 100%;
 }
 
 @media only screen and (max-width: 1020px) {
   .App-playlist {
-    align-items: center;
-    flex-direction: column;
+    -ms-flex-align: center;
+        align-items: center;
+    -ms-flex-direction: column;
+        flex-direction: column;
   }
 }
